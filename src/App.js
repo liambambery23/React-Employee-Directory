@@ -47,18 +47,33 @@ class Search extends Component {
     let sortedEmp = this.state.results;
     console.log(sortedEmp);
     console.log(sortedEmp[0].name.last)
-    sortedEmp.sort(function(a,b) {
-      var nameA=a.name.last.toLowerCase(), nameB=b.name.last.toLowerCase();
-      if (nameA < nameB) //sort string ascending
-        return -1;
-      if (nameA > nameB)
-        return 1;
-      return 0;
-    });
+    if (this.state.alphabetical) {
+      sortedEmp.sort(function(a,b) {
+        var nameA=a.name.last.toLowerCase(), nameB=b.name.last.toLowerCase();
+        if (nameA < nameB) //sort string ascending
+          return -1;
+        if (nameA > nameB)
+          return 1;
+        return 0;
+      });
+    } else {
+      sortedEmp.sort(function(a,b) {
+        var nameA=a.name.last.toLowerCase(), nameB=b.name.last.toLowerCase();
+        if (nameA > nameB) //sort string ascending
+          return -1;
+        if (nameA < nameB)
+          return 1;
+        return 0;
+      });
+    }
 
-    this.setState( {results: sortedEmp} )
+
+    this.setState({
+      results: sortedEmp,
+      alphabetical: !this.state.alphabetical
+    });
     
-  }
+  };
 
   // handleFormSubmit = event => {
   //   event.preventDefault();
