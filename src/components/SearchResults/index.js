@@ -1,5 +1,5 @@
 import React from "react";
-// import "./style.css";
+import "./style.css";
 
 function SearchResults(props) {
   return (
@@ -9,8 +9,9 @@ function SearchResults(props) {
       </span>
       {props.results.map(result => (
         <li key={result.email} className="list-group-item">
-          <img alt="Dog" src={result.picture.medium} className="img-fluid" />
+          <img alt="Profile" src={result.picture.medium} className="img-fluid" />
         {result.name.first} {result.name.last}
+        <p className="email">Email: {result.email}</p>
         </li>
       ))}
     </ul>
