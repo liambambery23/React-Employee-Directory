@@ -9,7 +9,8 @@ import SearchResults from "./components/SearchResults";
 class Search extends Component {
   state = {
     search: "",
-    results:[]
+    results:[],
+    alphabetical: true
   };
 
   // When the component mounts, get a list of all available base breeds and update this.state.breeds
@@ -25,17 +26,38 @@ class Search extends Component {
   handleInputChange = event => {
     this.setState({ search: event.target.value });
     //call the search fx searchNames()
-    this.searchNames();
+    this.searchNames(this.state.results, this.state.search);
   };
 
-  searchNames= () =>{
-    console.log("search names works")
+  searchNames = (names, search) =>{
+    
+    
+    const refinedResults = names.filter((data) =>  JSON.stringify(data).toLowerCase().indexOf(search.toLowerCase()) !== -1);
+
+    console.log(refinedResults);
+    this.setState( {results: refinedResults} )
+
+  
+    
     //using the this.state.search go ahead and find all naes that contain the this.state.search 
     //includes
   }
 
   sortByName = ()=>{
-    console.log("sort name works!");
+    let sortedEmp = this.state.results;
+    console.log(sortedEmp);
+    console.log(sortedEmp[0].name.last)
+    sortedEmp.sort(function(a,b) {
+      var nameA=a.name.last.toLowerCase(), nameB=b.name.last.toLowerCase();
+      if (nameA < nameB) //sort string ascending
+        return -1;
+      if (nameA > nameB)
+        return 1;
+      return 0;
+    });
+
+    this.setState( {results: sortedEmp} )
+    
   }
 
   // handleFormSubmit = event => {
