@@ -3,6 +3,7 @@ import "./style.css";
 
 
 function SearchForm(props) {
+    
   return (
     <form className="search">
       <div className="form-group">

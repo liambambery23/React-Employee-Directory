@@ -26,22 +26,37 @@ class Search extends Component {
   handleInputChange = event => {
     this.setState({ search: event.target.value });
     //call the search fx searchNames()
-    this.searchNames(this.state.results, this.state.search);
+    let userTyped = event.target.value;
+    const filteredList = this.state.results.filter((item) => {
+      let values = 
+      item.name.title +
+        item.name.first +
+        item.name.last +
+        item.gender +
+        item.dob.age +
+        item.email +
+        item.cell;
+        return values.indexOf(userTyped) !== -1;
+    });
+    this.setState({
+      results: filteredList
+    });
+    // this.searchNames(this.state.results, this.state.search);
   };
 
-  searchNames = (names, search) =>{
+  // searchNames = (names, search) =>{
     
     
-    const refinedResults = names.filter((data) =>  JSON.stringify(data).toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  //   const refinedResults = names.filter((data) =>  JSON.stringify(data).toLowerCase().indexOf(search.toLowerCase()) !== -1);
 
-    console.log(refinedResults);
-    this.setState( {results: refinedResults} )
+  //   console.log(refinedResults);
+  //   this.setState( {results: refinedResults} )
 
   
     
-    //using the this.state.search go ahead and find all naes that contain the this.state.search 
-    //includes
-  }
+  //   //using the this.state.search go ahead and find all naes that contain the this.state.search 
+  //   //includes
+  // }
 
   sortByName = ()=>{
     let sortedEmp = this.state.results;
